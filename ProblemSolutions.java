@@ -37,13 +37,32 @@ public class ProblemSolutions {
         int n = values.length;
 
         for (int i = 0; i < n - 1; i++) {
+            // Initialize position of the min/max found so far
+            int index = i;
 
-            // YOU CODE GOES HERE -- COMPLETE THE INNER LOOP OF THIS
-            // "SELECTION SORT" ALGORITHM.
-            // DO NOT FORGET TO ADD YOUR NAME / SECTION ABOVE
+            for (int j = i + 1; j < n; j++) {
+                if (ascending) {
+                    // If we want smallest numbers first (ascending)
+                    if (values[j] < values[index]) {
+                        // Find the new smallest number
+                        index = j;
+                    }
+                } else {
+                    // If we want largest numbers first (descending)
+                    if (values[j] > values[index]) {
+                        // Find the new largest number
+                        index = j;
+                    }
+                }
+            }
 
+            // Swap the element at position i with our found smallest or largest number if needed
+            if (index != i) {
+                int swap = values[i];
+                values[i] = values[index];
+                values[index] = swap;
+            }
         }
-
     } // End class selectionSort
 
 
