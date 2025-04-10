@@ -111,7 +111,57 @@ public class ProblemSolutions {
      */
 
     private void mergeDivisbleByKFirst(int arr[], int k, int left, int mid, int right) {
+        // Initialize pointers to start of left and right subarray
+        int leftIndex = left;
+        int rightIndex = mid + 1;
+        int startPos = left;
 
+        // Create temp array to store merged results
+        int[] tempArray = new int[right - left + 1];
+        int tempIndex = 0;
+
+        // Main merging loop - processing both subarrays
+        while(leftIndex <= mid && rightIndex <= right){
+            // Give priority to elements divisible by k
+            if(arr[leftIndex] % k == 0 && arr[rightIndex] % k != 0){
+                tempArray[tempIndex++] = arr[leftIndex++];
+            }
+            // If left is divisible but right is not
+            else if(arr[rightIndex] % k == 0 && arr[leftIndex] % k != 0){
+                tempArray[tempIndex++] = arr[rightIndex++];
+            }
+            // If right is divisible but left is not
+            else if(arr[leftIndex] % k == 0){
+                tempArray[tempIndex++] = arr[leftIndex++];
+            }
+            // If both elements are divisible, take left first
+            else if(arr[rightIndex] % k == 0){
+                tempArray[tempIndex++] = arr[rightIndex++];
+            }
+            else {
+                // If neither is divisible by k. sort normally
+                if(arr[leftIndex] <= arr[rightIndex]){
+                    tempArray[tempIndex++] = arr[leftIndex++];
+                } else {
+                    tempArray[tempIndex++] = arr[rightIndex++];
+                }
+            }
+        }
+
+        // Handle any remaining elements in left subarray
+        while(leftIndex <= mid){
+            tempArray[tempIndex++] = arr[leftIndex++];
+        }
+
+        // Handle any remaining elements in right subarray
+        while(rightIndex <= right){
+            tempArray[tempIndex++] = arr[rightIndex++];
+        }
+
+        // Copy elements from temp array back to original array
+        for(int i = 0; i < tempArray.length; i++){
+            arr[startPos + i] = tempArray[i];
+        }
     }
 
 
