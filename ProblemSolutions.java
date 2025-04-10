@@ -9,6 +9,7 @@
 
 import java.util.Arrays;
 
+
 public class ProblemSolutions {
 
     /**
@@ -214,11 +215,32 @@ public class ProblemSolutions {
 
     public static int numRescueSleds(int[] people, int limit) {
 
-        // YOUR CODE GOES HERE, CONSIDER USING ARRAYS.SORT
+        // Pair the lightest and heaviest
+        Arrays.sort(people);
 
-        return -1;
+        // Front passenger starts at the lightest person
+        int frontPassenger = 0;
 
+        // Back passenger starts at the heaviest person
+        int backPassenger = people.length - 1;
+
+        // Keep track of how many sleds needed
+        int sledCount = 0;
+
+        // Load passengers until everyone is rescued
+        while (frontPassenger <= backPassenger) {
+            // If the lightest and heaviest person left can share a sled
+            if (people[frontPassenger] + people[backPassenger] <= limit) {
+                // Move to the next lightest person
+                frontPassenger++;
+            }
+            // Heaviest person boards a sled either way
+            backPassenger--;
+
+            // One more sled is used
+            sledCount++;
+        }
+        return sledCount;
     }
-
 } // End Class ProblemSolutions
 
